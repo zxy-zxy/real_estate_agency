@@ -49,6 +49,7 @@ class Flat(models.Model):
 
     def get_owners(self):
         return [owner for owner in self.owner_set.all()]
+    get_owners.short_description = 'Владельцы квартиры'
 
 
 class Owner(models.Model):
