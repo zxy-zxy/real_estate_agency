@@ -7,8 +7,6 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Flat(models.Model):
-    owner = models.CharField('ФИО владельца', max_length=200)
-    owners_phonenumber = models.CharField('Номер владельца', max_length=20)
     created_at = models.DateTimeField(
         'Когда создано объявление', default=timezone.now, db_index=True
     )
@@ -46,12 +44,26 @@ class Flat(models.Model):
 
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, verbose_name='Кто лайкнул')
 
+    def __str__(self):
+        return f'{self.town}, {self.address} ({self.price}р.)'
+
+    def get_owners(self):
+        return [owner for owner in self.owner_set.all()]
+
+
+class Owner(models.Model):
+    owner_initials = models.CharField('ФИО владельца', max_length=200)
+    owner_phonenumber = models.CharField('Номер владельца', max_length=20)
     owner_phone_pure = PhoneNumberField(
         blank=True, verbose_name='Нормализованный номер владельца'
     )
+    owner_flats = models.ManyToManyField(Flat, verbose_name='Квартиры в собственности')
 
     def __str__(self):
-        return f'{self.town}, {self.address} ({self.price}р.)'
+        return f'{self.owner_initials} {self.owner_phone_pure}'
+
+    def __repr__(self):
+        return self.__str__()
 
 
 class Report(models.Model):
@@ -72,3 +84,9 @@ class Report(models.Model):
     @property
     def short_text(self):
         return truncatechars(self.text, 100)
+
+    def __str__(self):
+        return f'Report by {self.user} with content: {self.short_text}'
+
+    def __repr__(self):
+        return self.__str__()
