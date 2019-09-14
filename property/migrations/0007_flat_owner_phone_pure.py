@@ -6,14 +6,14 @@ import phonenumber_field.modelfields
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('property', '0006_flat_likes'),
-    ]
+    dependencies = [('property', '0006_flat_likes')]
 
     operations = [
         migrations.AddField(
             model_name='flat',
             name='owner_phone_pure',
-            field=phonenumber_field.modelfields.PhoneNumberField(blank=True, max_length=128, region=None),
-        ),
+            field=phonenumber_field.modelfields.PhoneNumberField(
+                blank=True, max_length=128, region=None
+            ),
+        )
     ]

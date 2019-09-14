@@ -6,7 +6,14 @@ from .models import Flat, Report
 class FlatAdmin(admin.ModelAdmin):
     search_fields = ['owner', 'town', 'address']
     readonly_fields = ['created_at']
-    list_display = ['address', 'price', 'new_building', 'construction_year', 'town', 'owner_phone_pure']
+    list_display = [
+        'address',
+        'price',
+        'new_building',
+        'construction_year',
+        'town',
+        'owner_phone_pure',
+    ]
     list_editable = ['new_building']
     list_filter = ['new_building']
     raw_id_fields = ['likes']

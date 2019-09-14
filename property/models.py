@@ -12,7 +12,6 @@ class Flat(models.Model):
     created_at = models.DateTimeField(
         'Когда создано объявление', default=timezone.now, db_index=True
     )
-
     description = models.TextField('Текст объявления', blank=True)
     price = models.IntegerField('Цена квартиры', db_index=True)
 
@@ -47,7 +46,9 @@ class Flat(models.Model):
 
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, verbose_name='Кто лайкнул')
 
-    owner_phone_pure = PhoneNumberField(blank=True)
+    owner_phone_pure = PhoneNumberField(
+        blank=True, verbose_name='Нормализованный номер владельца'
+    )
 
     def __str__(self):
         return f'{self.town}, {self.address} ({self.price}р.)'
