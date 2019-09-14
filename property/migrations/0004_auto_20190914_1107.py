@@ -10,10 +10,6 @@ def fulfill_new_building_field(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ('property', '0003_flat_new_building'),
-    ]
+    dependencies = [('property', '0003_flat_new_building')]
 
-    operations = [
-        migrations.RunPython(fulfill_new_building_field)
-    ]
+    operations = [migrations.RunPython(fulfill_new_building_field)]
