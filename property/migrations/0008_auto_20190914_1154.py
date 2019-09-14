@@ -10,7 +10,7 @@ def update_phonenumber_pure_from_phone_number(apps, schema_editor):
 
     for flat in Flat.objects.all():
         phone_pure = phonenumbers.parse(flat.owners_phonenumber, region='RU')
-        if not phonenumbers.is_valid_number(phone_pure):
+        if phonenumbers.is_valid_number(phone_pure):
             flat.owner_phone_pure = '+{}{}'.format(
                 phone_pure.country_code, phone_pure.national_number
             )
